@@ -5,23 +5,21 @@ import javax.persistence.*;
 
 @Entity
 public class Room {
-    public Room (){}
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Column
     private String name;
 
-    @Column
     private int maximumCapacity;
 
-    @Column
     private int floor;
 
-    @Column
     private boolean hasAProjector;
+
+    public Room() {
+    }
 
     public Room(String name, int maximumCapacity, int floor, boolean hasAProjector) {
         super();

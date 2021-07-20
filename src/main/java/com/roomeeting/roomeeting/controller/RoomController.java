@@ -2,7 +2,7 @@ package com.roomeeting.roomeeting.controller;
 
 
 import com.roomeeting.roomeeting.model.entity.Room;
-import com.roomeeting.roomeeting.repository.RoomRepository;
+import com.roomeeting.roomeeting.service.RoommeetingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,29 +14,27 @@ import java.util.Optional;
 public class RoomController {
 
     @Autowired
-    private RoomRepository roomRepository;
+    RoommeetingService roommeetingService;
 
     @RequestMapping(method = {RequestMethod.POST, RequestMethod.PUT}) //Atualiza e cria nova sala
-    public @ResponseBody
-    Room upNewRoom(@Valid Room room) {
-        roomRepository.save(room);
-        return room;
-
+    @ResponseBody
+    public Room upNewRoom(@Valid Room room) {
+        return roommeetingService.saveRoom(room);
     }
 
-    @GetMapping ("/list")// Lista as salas
+    @GetMapping("/list")// Lista as salas
     public Iterable<Room> obtainRoom() {
-        return roomRepository.findAll();
+        return roommeetingService.obtainRoom();
     }
 
-    @GetMapping ("/{id}") //Lista sala por ID
-    public Optional<Room> obtainRoomForId (@PathVariable int id) {
-    return roomRepository.findById(id);
-
+    @GetMapping("/{id}") //Lista sala por ID
+    public Optional<Room> obtainRoomForId(@PathVariable int id) {
+        return roommeetingService.obtainRoomFromId(id);
     }
 
-    @DeleteMapping (path = "/{id}") //Deleta salas por ID
-    public void deleteRoom(@PathVariable  int id) { roomRepository.deleteById(id);}
-
+    @DeleteMapping(path = "/{id}") //Deleta salas por ID
+    public void deleteRoom(@PathVariable int id) {
+        roommeetingService.deleteRoom(id);
+    }
 
 }
