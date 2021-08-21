@@ -15,19 +15,25 @@ public class RoomController {
 
     @Autowired
     RoommeetingService roommeetingService;
+    @RequestMapping(me)
 
-    @RequestMapping(method = {RequestMethod.POST, RequestMethod.PUT}) //Atualiza e cria nova sala
+    @PostMapping("/new") //Cria uma nova sala
     @ResponseBody
-    public Room upNewRoom(@Valid Room room) {
-        return roommeetingService.saveRoom(room);
+    public Room createRoom(@Valid Room room) {
+        return roommeetingService.createRoom(room);
     }
 
-    @GetMapping("/list")// Lista as salas
+    @PutMapping("/update") //Altera sala existente
+    public Room updateRoom(@Valid Room room) {
+        return roommeetingService.updateRoom(room);
+    }
+
+    @GetMapping("/list")// Lista todas as salas
     public Iterable<Room> obtainRoom() {
         return roommeetingService.obtainRoom();
     }
 
-    @GetMapping("/{id}") //Lista sala por ID
+    @GetMapping("/{id}") //Lista salas por ID
     public Optional<Room> obtainRoomForId(@PathVariable int id) {
         return roommeetingService.obtainRoomFromId(id);
     }

@@ -13,7 +13,12 @@ public class RoommeetingService {
     @Autowired
     private RoomRepository roomRepository;
 
-    public Room saveRoom(Room room) {
+    public Room updateRoom(Room room) {
+        roomRepository.save(room);
+        return room;
+    }
+
+    public Room createRoom(Room room) {
         roomRepository.save(room);
         return room;
     }
@@ -29,6 +34,5 @@ public class RoommeetingService {
     public void deleteRoom(int id) {
         roomRepository.deleteById(id);
     }
-
 
 }
